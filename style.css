@@ -1,0 +1,158 @@
+/* ===== Színek és betűk (itt egyszerű átírni) ===== */
+:root{
+  --wine:#4a0b1d; --wine2:#7a1a33; --black:#0b0507;
+  --blush:#f6d3da; --cream:#fbf3e8; --gold:#d9b46c; --ink:#3b1a22; --rose:#c2183f;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --script:"Great Vibes","Segoe Script","Brush Script MT",cursive;
+}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--cream);background:var(--black);line-height:1.7;
+  font-size:clamp(1rem,.95rem + .25vw,1.125rem);overflow-x:hidden;min-height:100vh}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+/* Háttér: két réteg, a második a finálénál tűnik elő */
+.bg{position:fixed;inset:0;z-index:-2;
+  background:radial-gradient(60% 50% at 20% 10%,rgba(122,26,51,.55),transparent 70%),
+             radial-gradient(50% 50% at 85% 85%,rgba(217,180,108,.12),transparent 70%),
+             linear-gradient(160deg,#16060b,var(--black) 60%)}
+.bg::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity 2.5s;
+  background:radial-gradient(70% 60% at 50% 40%,rgba(246,150,175,.35),transparent 70%),
+             linear-gradient(160deg,#5a0f22,#1a0710 70%)}
+body.rose .bg::after{opacity:1}
+#sparkles{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+#fx{position:fixed;inset:0;z-index:50;pointer-events:none;overflow:hidden}
+
+/* Lebegő szívek, szívrobbanás, konfetti */
+.rise,.pop{position:absolute;color:var(--blush);text-shadow:0 0 12px rgba(255,120,160,.8)}
+.rise{bottom:-2rem;animation:rise linear forwards}
+.pop{animation:pop 1.6s ease-out forwards}
+.conf{position:absolute;top:-20px;border-radius:2px;animation:fall linear forwards}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}12%{opacity:.85}
+  100%{transform:translate(var(--dx),-110vh) scale(1.1);opacity:0}}
+@keyframes pop{0%{transform:translate(-50%,-50%) scale(.3);opacity:1}
+  100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(var(--r)) scale(1);opacity:0}}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(720deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* Zene gomb */
+.music{position:fixed;top:max(1rem,env(safe-area-inset-top));right:max(1rem,env(safe-area-inset-right));z-index:60;
+  width:48px;height:48px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);
+  background:rgba(11,5,7,.55);backdrop-filter:blur(6px);font-size:1.3rem;cursor:pointer;transition:.3s}
+.music.on{background:var(--gold);color:var(--black);box-shadow:0 0 22px rgba(217,180,108,.6)}
+
+/* Gombok */
+.btn{position:relative;overflow:hidden;min-height:48px;padding:.9rem 2.2rem;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gold);color:var(--cream);font:500 1rem var(--sans);letter-spacing:.03em;
+  background:linear-gradient(135deg,rgba(122,26,51,.85),rgba(74,11,29,.85));
+  box-shadow:0 0 28px rgba(194,24,63,.35);transition:transform .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 8px 36px rgba(217,180,108,.4)}
+.btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.25),transparent);animation:shine 3.5s ease-in-out infinite}
+@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+.btn.primary{background:linear-gradient(135deg,#c2183f,#7a1a33);font-size:1.1rem}
+
+/* 1. Hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:5rem 1.25rem;gap:2.2rem;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;width:min(70vw,520px);aspect-ratio:1;border-radius:50%;
+  filter:blur(70px);opacity:.45;z-index:-1;animation:drift 14s ease-in-out infinite alternate}
+.hero::before{background:#8a1537;top:-8%;left:-12%}
+.hero::after{background:rgba(217,180,108,.5);bottom:-12%;right:-10%;animation-delay:-6s}
+@keyframes drift{to{transform:translate(8vw,6vh) scale(1.2)}}
+.eyebrow{font-family:var(--script);font-size:clamp(1.6rem,5vw,2.4rem);color:var(--gold);animation:fadeUp 1.4s ease both}
+.hero h1{max-width:18ch;font:italic 400 clamp(2rem,7vw,4.4rem)/1.15 var(--serif);color:var(--cream);
+  text-shadow:0 0 40px rgba(255,150,180,.45);animation:fadeUp 1.8s .5s ease both}
+.hero .btn{animation:fadeUp 1.6s 1.4s ease both}
+
+/* Szekciók */
+.sec{max-width:1100px;margin:0 auto;padding:clamp(4rem,10vw,7rem) 1.25rem;text-align:center}
+h2{font:500 clamp(1.8rem,4.8vw,3rem)/1.2 var(--serif);color:var(--blush)}
+h2::after{content:"";display:block;width:64px;height:1px;margin:1rem auto 0;background:var(--gold)}
+.sub{max-width:46ch;margin:1.2rem auto 0;color:rgba(251,243,232,.8)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 1s,transform 1s}
+.reveal.in{opacity:1;transform:none}
+
+/* 2. Boríték */
+.env-wrap{display:flex;justify-content:center;margin-top:4rem;padding-top:2rem}
+.envelope{position:relative;width:min(88vw,360px);aspect-ratio:3/2;padding:0;border:0;background:none;cursor:pointer;
+  perspective:900px;filter:drop-shadow(0 20px 35px rgba(0,0,0,.6))}
+.envelope:not(.open){animation:bob 3.5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.envelope>span{position:absolute}
+.env-back{inset:0;background:#5e1226;border-radius:6px;z-index:0}
+.env-paper{inset:6% 7% 4%;background:var(--cream);border-radius:4px;z-index:2;color:#8a1537;
+  font:2rem var(--script);padding-top:.5rem;transition:transform 1s .5s ease}
+.env-front{inset:0;z-index:3;border-radius:6px;background:linear-gradient(160deg,#8a1d3a,#6a1229);
+  clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%)}
+.flap{top:0;left:0;width:100%;height:58%;z-index:4;background:linear-gradient(#a02446,#7a1a33);
+  clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .9s ease,z-index 0s .45s}
+.seal{top:58%;left:50%;z-index:5;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+  transform:translate(-50%,-50%);color:#5a0f22;font-size:1.5rem;transition:opacity .4s,transform .6s;
+  background:radial-gradient(circle at 35% 30%,#f1d49a,var(--gold) 60%,#a98240);box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.envelope.open .flap{transform:rotateX(180deg);z-index:1}
+.envelope.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
+.envelope.open .env-paper{transform:translateY(-52%)}
+
+/* Levél */
+.letter{max-width:640px;margin:3.5rem auto 0;padding:clamp(1.6rem,5vw,3rem);text-align:left;border-radius:6px;
+  background:linear-gradient(180deg,#fffaf1,#f6e9d6);color:var(--ink);font:400 clamp(1.15rem,1rem + .8vw,1.45rem)/1.75 var(--serif);
+  box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 0 0 1px rgba(217,180,108,.7);animation:fadeUp 1.2s ease both}
+.letter p{margin-top:1rem;opacity:0;animation:fadeUp 1s ease forwards}
+.letter .greet{font-size:1.5em;font-style:italic;color:#8a1537;margin:0}
+.hl{font-style:normal;font-weight:600;color:#8a1537;padding-bottom:1px;background:linear-gradient(var(--gold),var(--gold)) 0 100%/0 2px no-repeat;
+  animation:ul 1.4s 2s forwards}
+@keyframes ul{to{background-size:100% 2px}}
+.sign{display:inline-block;font:clamp(2.2rem,7vw,3rem) var(--script);color:#8a1537;line-height:1.2;
+  clip-path:inset(0 100% 0 0);animation:write 2.2s 3s ease-out forwards}
+@keyframes write{to{clip-path:inset(0 0 0 0)}}
+
+/* 3. Emlékek */
+.cards{display:flex;gap:1.4rem;margin-top:3rem;padding:1rem .5rem 1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;text-align:left}
+.card{flex:0 0 min(80vw,310px);scroll-snap-align:center;border-radius:14px;overflow:hidden;
+  background:linear-gradient(170deg,rgba(122,26,51,.55),rgba(20,6,11,.9));border:1px solid rgba(217,180,108,.35);
+  transition:transform .4s,box-shadow .4s}
+.card:hover{transform:translateY(-10px);box-shadow:0 18px 40px rgba(194,24,63,.3)}
+.photo{aspect-ratio:4/3;display:grid;place-items:center;font-size:3.5rem;color:rgba(246,211,218,.7);
+  background:radial-gradient(circle at 30% 25%,rgba(246,211,218,.35),transparent 60%),linear-gradient(135deg,#8a1d3a,#2a0a14)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.card .body{padding:1.2rem 1.3rem 1.5rem}
+.card time{color:var(--gold);font-size:.9rem}
+.card h3{font:600 1.5rem/1.25 var(--serif);color:var(--blush);margin:.2rem 0 .5rem}
+.card p{font-size:.97rem;color:rgba(251,243,232,.85)}
+@media(min-width:900px){.cards{flex-wrap:wrap;justify-content:center;overflow:visible}.card{flex-basis:300px}}
+
+.reason-hearts{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;margin-top:2.2rem}
+.reason-hearts button{width:60px;height:60px;border:0;background:none;color:var(--rose);font-size:2.8rem;line-height:1;cursor:pointer;
+  text-shadow:0 0 18px rgba(255,80,120,.6);transition:transform .25s}
+.reason-hearts button:hover{transform:scale(1.2)}
+.reason-hearts button.tap{animation:tap .5s}
+@keyframes tap{40%{transform:scale(1.5) rotate(-8deg)}}
+.reason-msg{max-width:30ch;min-height:5.5em;margin:1.5rem auto 0;font:italic 400 clamp(1.4rem,3.6vw,2.1rem)/1.4 var(--serif);color:var(--cream)}
+.reason-msg.swap{animation:fadeUp .7s ease}
+
+.big-heart{display:block;margin:2rem auto 0;border:0;background:none;cursor:pointer;color:var(--rose);
+  font-size:clamp(6rem,32vw,11rem);line-height:1;text-shadow:0 0 50px rgba(255,70,110,.75);animation:beat 1.6s ease-in-out infinite}
+.big-heart.gone{animation:vanish .9s forwards;pointer-events:none}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.12)}30%{transform:scale(1)}45%{transform:scale(1.08)}}
+@keyframes vanish{to{transform:scale(2.4);opacity:0}}
+.finale-box{max-width:640px;margin:0 auto;animation:fadeUp 1.4s ease both}
+.final-text{font:italic 400 clamp(1.3rem,3.4vw,1.9rem)/1.6 var(--serif);color:var(--blush)}
+#question{margin-top:2.5rem;animation:fadeUp 1.4s ease both}
+.question{font-size:clamp(1.9rem,6vw,3.2rem);color:var(--cream);text-shadow:0 0 30px rgba(255,150,180,.5)}
+.btns{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2rem}
+.btn.no{background:rgba(11,5,7,.6);color:rgba(251,243,232,.85);box-shadow:none;z-index:40;
+  transition:left .3s ease,top .3s ease,box-shadow .3s}
+.btn.no:hover{transform:none;box-shadow:none}
+.btn.no::after{display:none}
+.answer{margin-top:2rem;font:clamp(2rem,7vw,3.2rem)/1.4 var(--script);color:var(--gold);text-shadow:0 0 24px rgba(217,180,108,.5);animation:fadeUp 1.6s ease both}
+footer{padding:3rem 1rem 4rem;text-align:center;color:rgba(251,243,232,.6);font-size:.9rem}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .hl{background-size:100% 2px}.sign{clip-path:none}.letter p{opacity:1}
+}

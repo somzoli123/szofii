@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#16060b">
+  <title>Szofinak ♡</title>
+  <!-- A betűtípusok csak szépítenek: ha nem töltenek be, a tartalék betűk működnek -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Háttér, csillogó részecskék, lebegő szívek -->
+  <div class="bg" aria-hidden="true"></div>
+  <canvas id="sparkles" aria-hidden="true"></canvas>
+  <div id="fx" aria-hidden="true"></div>
+
+  <button class="music" id="musicBtn" type="button" aria-pressed="false" aria-label="Háttérzene bekapcsolása" title="Zene">♪</button>
+
+  <main>
+    <!-- 1. Nyitóképernyő -->
+    <section class="hero" id="hero">
+      <p class="eyebrow" data-t="heroEyebrow"></p>
+      <h1 data-t="heroTitle"></h1>
+      <button class="btn" id="startBtn" type="button" data-t="heroButton"></button>
+    </section>
+
+    <!-- 2. Boríték és szerelmes levél -->
+    <section class="sec" id="letterSec" hidden>
+      <h2 data-t="envelopeHeading"></h2>
+      <p class="sub" data-t="envelopeHint"></p>
+      <div class="env-wrap">
+        <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-controls="letter" aria-label="Boríték kinyitása">
+          <span class="env-back"></span>
+          <span class="env-paper" id="envName"></span>
+          <span class="env-front"></span>
+          <span class="flap"></span>
+          <span class="seal">♥</span>
+        </button>
+      </div>
+      <article class="letter" id="letter" tabindex="-1" hidden aria-label="Szerelmes levél"></article>
+    </section>
+
+    <div id="rest" hidden>
+      <!-- 3. Közös emlékek -->
+      <section class="sec" id="memories">
+        <h2 class="reveal" data-t="memoriesHeading"></h2>
+        <p class="sub reveal" data-t="memoriesSub"></p>
+        <div class="cards" id="cards" tabindex="0" role="region" aria-label="Közös emlékeink"></div>
+      </section>
+
+      <!-- 4. Miért vagy különleges? -->
+      <section class="sec" id="why">
+        <h2 class="reveal" data-t="whyHeading"></h2>
+        <p class="sub reveal" data-t="whySub"></p>
+        <div class="reason-hearts reveal" id="reasonHearts"></div>
+        <p class="reason-msg" id="reasonMsg" aria-live="polite"></p>
+      </section>
+
+      <!-- 5. Meglepetés -->
+      <section class="sec finale" id="finale">
+        <h2 class="reveal" data-t="finaleHeading"></h2>
+        <button class="big-heart" id="bigHeart" type="button" aria-label="Érintsd meg a szívet">♥</button>
+        <p class="sub" id="finaleHint" data-t="finaleHint"></p>
+        <div class="finale-box" id="finaleBox" hidden>
+          <p class="final-text" id="finalText"></p>
+          <div id="question" hidden>
+            <h2 class="question" id="qText"></h2>
+            <div class="btns">
+              <button class="btn primary" id="yesBtn" type="button"></button>
+              <button class="btn primary" id="yeahBtn" type="button"></button>
+              <button class="btn no" id="noBtn" type="button" aria-label="Nem (ez a gomb elmenekül)"></button>
+            </div>
+          </div>
+          <p class="answer" id="answer" hidden aria-live="polite"></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer><p data-t="footer"></p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
